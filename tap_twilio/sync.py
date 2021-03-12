@@ -359,6 +359,16 @@ def sync_endpoint(
                                 'replication_keys', [])), None)
 
                             if child_path:
+                                if child_stream_name == "messages":
+                                    st_date = datetime.strptime('2020-01-01T00:00:00Z', "%Y-%m-%dT%H:%M:%SZ")
+                                    if (datetime.now() - st_date).days > 399:
+                                        new_start_date = datetime.now() - timedelta(days=399)
+                                        start_date = datetime.strftime(new_start_date, "%Y-%m-%dT%H:%M:%SZ")
+                                        LOGGER.info(
+                                            'Changed start_date for "messages" stream to {}, '
+                                            'because messages are only stored for the last 400 days'.format(start_date)
+                                        )
+
                                 child_total_records = sync_endpoint(
                                     client=client,
                                     config=config,
