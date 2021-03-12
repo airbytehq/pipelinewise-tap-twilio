@@ -360,7 +360,7 @@ def sync_endpoint(
 
                             if child_path:
                                 if child_stream_name == "messages":
-                                    st_date = datetime.strptime('2020-01-01T00:00:00Z', "%Y-%m-%dT%H:%M:%SZ")
+                                    st_date = datetime.strptime(start_date, "%Y-%m-%dT%H:%M:%SZ")
                                     if (datetime.now() - st_date).days > 399:
                                         new_start_date = datetime.now() - timedelta(days=399)
                                         start_date = datetime.strftime(new_start_date, "%Y-%m-%dT%H:%M:%SZ")
