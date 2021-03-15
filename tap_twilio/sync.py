@@ -359,6 +359,8 @@ def sync_endpoint(
                                 'replication_keys', [])), None)
 
                             if child_path:
+                                # Checking for the start date of reading "messages" stream,
+                                # it should not be more than 400 days before now
                                 if child_stream_name == "messages":
                                     st_date = datetime.strptime(start_date, "%Y-%m-%dT%H:%M:%SZ")
                                     if (datetime.now() - st_date).days > 399:
